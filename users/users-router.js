@@ -4,7 +4,14 @@ const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const Users = require("./users-model");
 
-router.get("/", (req, res) => {
+const {
+  validateUser,
+  validateId,
+  validateLogin,
+  authenticator,
+} = require("../middleware/index");
+
+router.get("/", authenticator, (req, res) => {
   Users.getAll()
     .then((response) => {
       res.status(200).json(response);
@@ -14,7 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", authenticator, validateId, (req, res) => {
   Users.findBy(req.params.id)
     .then((response) => {
       res.status(200).json(response);
@@ -24,7 +31,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", validateUser, (req, res) => {
   const rounds = process.env.BCRYPT_ROUNDS || 8;
   const hash = bcryptjs.hashSync(req.body.password, rounds);
   req.body.password = hash;
@@ -38,7 +45,7 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", validateLogin, (req, res) => {
   const { username, password } = req.body;
 
   Users.findByUsers({ username }).then(([response]) => {
@@ -52,7 +59,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", authenticator, validateUser, validateId, (req, res) => {
   const { id } = req.params;
 
   Users.editUser(req.body, id)
@@ -66,7 +73,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticator, validateId, (req, res) => {
   const { id } = req.params;
 
   Users.deleteUser(id)
