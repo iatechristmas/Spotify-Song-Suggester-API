@@ -1,14 +1,23 @@
 # Spotify Song Suggester API
 
+## API URL
+
 INSERT URL HERE
+
+## Table of Contents
+
+- [Register](#register-a-user) (POST)
+- [Login](#login) (POST)
+- [User Data](#get-all-users) (GET)
+- [User Data by ID](#get-user-by-id) (GET)
+- [Update User by ID](#update-user-information) (PUT)
+- [Delete User](#delete-a-user) (DELETE)
 
 # User Routes
 
 ### REGISTER A USER
 
-HTTP Request: POST
-
-URL: /api/users/register
+**POST**: `/api/users/register`
 
 ##### Body
 
@@ -51,7 +60,7 @@ URL: /api/users/register
 
 ##### 400 (Bad Request)
 
-> Will receive a 400 response and display one of the following messages if any required information is missing from the body
+> Will receive a 400 response one of the following messages if any required information is missing from the body
 
 ```javascript
 {
@@ -91,9 +100,7 @@ URL: /api/users/register
 
 ### LOGIN
 
-HTTP Request: POST
-
-URL: /api/users/login
+**POST**: `/api/users/login`
 
 ##### Body
 
@@ -158,9 +165,7 @@ URL: /api/users/login
 
 ### GET ALL USERS
 
-HTTP Request: GET
-
-URL: /api/users
+**GET**: `/api/users`
 
 #### Response
 
@@ -191,7 +196,7 @@ URL: /api/users
 
 ```javascript
 {
-    "message": "Not logged in. Restricted"
+    "message": "Please log in"
 }
 ```
 
@@ -219,42 +224,40 @@ URL: /api/users
 
 ### GET USER BY ID
 
-HTTP Request: GET
-
-URL: /api/users/:id
+**GET**: `/api/users/:id`
 
 #### Response
 
 ##### 200 (OK)
 
-> Will receive a 200 response with a user object
+> Will receive a 200 response with an object containing the requested user
 
 ```javascript
 {
-    "id": 2,
-    "first_name": "Bat",
-    "last_name": "Man",
-    "username": "clarkkent"
+    "id": 1,
+    "first_name": "Test",
+    "last_name": "Test",
+    "username": "test"
 }
 ```
 
-##### 400 (Bad Request) // (IF RESTRICTED)
+##### 400 (Bad Request)
 
-> Will receive a 400 response if required information is missing from the body
+> Will receive a 400 response if connecting client does not have an Authorization token in its headers
 
 ```javascript
 {
-  "message": "Missing user data"
+    "message": "Please log in"
 }
 ```
 
-##### 401 (Unauthorized) // (IF RESTRICTED)
+##### 401 (Unauthorized)
 
-> Will receive a 401 response if credentials are invalid
+> Will receive a 401 response if credentials are invalid or expired
 
 ```javascript
 {
-  "message": "Access Denied: Unauthorized"
+  "message": "Token invalid. Please log in and get a new token"
 }
 ```
 
@@ -264,17 +267,16 @@ URL: /api/users/:id
 
 ```javascript
 {
-  "message": "User with the id of ${id} was not found"
+  "message": "User ${id} could not be found"
 }
 ```
 
 ##### 500 (Internal Server Error)
 
-> Will receive a 500 response if there is a problem with the server
+> Will receive a 500 response if there is an issue with the API server
 
 ```javascript
 {
-  "message": "The user information could not be retrieved",
   "errorMessage": "Server error information"
 }
 ```
@@ -283,9 +285,7 @@ URL: /api/users/:id
 
 ### UPDATE USER INFORMATION
 
-HTTP Request: PUT
-
-URL: /api/users/:id
+**PUT**: `/api/users/:id`
 
 ##### Body
 
@@ -301,10 +301,11 @@ URL: /api/users/:id
 
 ```javascript
 {
-    "id": 3,
-    "username": "robin",
-    "first_name": "Dick",
-    "last_name": "Grayson",
+    "id": 1,
+    "first_name": "Test",
+    "last_name": "Test",
+    "username": "test",
+    "password": "test"
 }
 ```
 
@@ -315,32 +316,56 @@ URL: /api/users/:id
 > Will receive a 200 response with the updated user object if the request is successful
 
 ```javascript
-    {
-        "id": 1,
-        "username": "Nightwing",
-        "first_name": "Dick",
-        "last_name": "Grayson",
-        "zip_code": "54305"
-    }
+{
+    "id": 1,
+    "first_name": "Test",
+    "last_name": "Test",
+    "username": "test",
+    "password": "test"
+}
 ```
 
 ##### 400 (Bad Request)
 
-> Will receive a 400 response if required information is missing from the body
+> Will receive a 400 response and one of the following messages if connecting client does not have an Authorization token in its headers or if any required information is missing from the body
 
 ```javascript
 {
-  "message": "No credentials provided"
+    "message": "Please log in"
+}
+```
+
+```javascript
+{
+    "message": "Missing required field: first_name"
+}
+```
+
+```javascript
+{
+    "message": "Missing required field: last_name"
+}
+```
+
+```javascript
+{
+    "message": "Missing required field: username"
+}
+```
+
+```javascript
+{
+    "message": "Missing required field: password"
 }
 ```
 
 ##### 401 (Unauthorized)
 
-> Will receive a 401 response if credentials are invalid
+> Will receive a 401 response if credentials are invalid or expired
 
 ```javascript
 {
-  "message": "Access Denied: Unauthorized"
+  "message": "Token invalid. Please log in and get a new token"
 }
 ```
 
@@ -350,17 +375,16 @@ URL: /api/users/:id
 
 ```javascript
 {
-  "message": "User with the id of ${id} was not found"
+  "message": "User ${id} could not be found"
 }
 ```
 
 ##### 500 (Internal Server Error)
 
-> Will receive a 500 response if there is a problem with the server
+> Will receive a 500 response if there is an issue with the API server
 
 ```javascript
 {
-  "message": "Server could not update user",
   "error": "Server error information"
 }
 ```
@@ -369,13 +393,13 @@ URL: /api/users/:id
 
 ### DELETE A USER
 
-HTTP Request: DELETE
-
-URL: /api/users/:id
+**DELETE**: `/api/users/:id`
 
 #### Response
 
 ##### 200 (OK)
+
+> Will receive a 200 response if the user is deleted successfully
 
 ```javascript
 {
@@ -386,21 +410,21 @@ URL: /api/users/:id
 
 ##### 400 (Bad Request)
 
-> Will receive a 400 response if required information is missing from the body
+> Will receive a 400 response if connecting client does not have an Authorization token in its headers
 
 ```javascript
 {
-  "message": "No credentials provided"
+    "message": "Please log in"
 }
 ```
 
 ##### 401 (Unauthorized)
 
-> Will receive a 401 response if credentials are invalid
+> Will receive a 401 response if credentials are invalid or expired
 
 ```javascript
 {
-  "message": "Access Denied: Unauthorized"
+  "message": "Token invalid. Please log in and get a new token"
 }
 ```
 
@@ -410,17 +434,16 @@ URL: /api/users/:id
 
 ```javascript
 {
-  "message": "User with the id of ${id} was not found"
+  "message": "User ${id} could not be found"
 }
 ```
 
 ##### 500 (Internal Server Error)
 
-> Will receive a 500 response if there is a problem with the server
+> Will receive a 500 response if there is an issue with the API server
 
 ```javascript
 {
-  "message": "Server failed to remove the user"
   "error": "Server error information"
 }
 ```

@@ -31,19 +31,6 @@ router.get("/:id", authenticator, validateId, (req, res) => {
     });
 });
 
-// router.post("/register", validateUser, (req, res) => {
-//   const rounds = process.env.BCRYPT_ROUNDS || 8;
-//   const hash = bcryptjs.hashSync(req.body.password, rounds);
-//   req.body.password = hash;
-
-//   Users.register(req.body)
-//     .then((response) => {
-//       res.status(201).json(response);
-//     })
-//     .catch((error) => {
-//       res.status(500).json({ errorMessage: error });
-//     });
-// });
 
 router.post("/register", validateUser, (req, res) => {
   const user = req.body;
@@ -90,7 +77,7 @@ router.put("/:id", authenticator, validateUser, validateId, (req, res) => {
 router.delete("/:id", authenticator, validateId, (req, res) => {
   Users.deleteUser(req.params.id)
     .then((response) => {
-      res.status(200).json({ message: "The user was successfully deleted!" });
+      res.status(200).json({ message: "The user was successfully deleted" });
     })
     .catch((error) => {
       res.status(500).json({ errorMessage: error });

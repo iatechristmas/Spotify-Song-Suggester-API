@@ -72,17 +72,15 @@ function authenticator(req, res, next) {
 
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
-        res
-          .status(401)
-          .json({
-            message: "Token invalid. Please log in and get a new token",
-          });
+        res.status(401).json({
+          message: "Token invalid. Please log in and get a new token",
+        });
       } else {
         req.jwt = decodedToken;
         next();
       }
     });
   } else {
-    res.status(400).json({ message: "Not logged in. Restricted" });
+    res.status(400).json({ message: "Please log in" });
   }
 }
