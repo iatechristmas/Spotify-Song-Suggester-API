@@ -2,7 +2,7 @@
 
 ## API URL
 
-INSERT URL HERE
+`https://bwft-spotify-song-suggester.herokuapp.com/`
 
 ## Table of Contents
 
