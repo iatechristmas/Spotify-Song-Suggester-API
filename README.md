@@ -2,7 +2,7 @@
 
 ## API URL
 
-`https://bwft-spotify-song-suggester.herokuapp.com/`
+[`https://bwft-spotify-song-suggester.herokuapp.com/`](https://bwft-spotify-song-suggester.herokuapp.com/)
 
 ## Table of Contents
 
@@ -43,9 +43,7 @@
 
 #### Responses:
 
-##### 201 (Created)
-
-> Will receive a 201 response along wtih the newly created user if registration is successful
+> Will receive a **201 (Created)** response along wtih the newly created user if registration is successful
 
 ```javascript
 [
@@ -58,9 +56,7 @@
 ];
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response one of the following messages if any required information is missing from the body
+> Will receive a **400 (Bad Request)** response one of the following messages if any required information is missing from the body
 
 ```javascript
 {
@@ -86,9 +82,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
@@ -120,9 +114,7 @@
 
 #### Responses:
 
-##### 200 (OK)
-
-> Will receive a 200 response with a welcome message and a valid token if the login request is successful
+> Will receive a **200 (OK)** response with a welcome message and a valid token if the login request is successful
 
 ```javascript
 {
@@ -131,9 +123,7 @@
 }
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response if any required information is missing from the body
+> Will receive a **400 (Bad Request)** response if any required information is missing from the body
 
 ```javascript
 {
@@ -141,9 +131,7 @@
 }
 ```
 
-##### 401 (Unauthorized)
-
-> Will receive a 401 response if credentials are invalid
+> Will receive a **401 (Unauthorized)** response if credentials are invalid
 
 ```javascript
 {
@@ -151,9 +139,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
@@ -169,9 +155,7 @@
 
 #### Responses:
 
-##### 200 (OK)
-
-> Will receive a 200 response with an array of users if the request is successful
+> Will receive a **200 (OK)** response with an array of users if the request is successful
 
 ```javascript
 [
@@ -190,9 +174,7 @@
 ];
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response if connecting client does not have an Authorization token in its headers
+> Will receive a **400 (Bad Request)** response if connecting client does not have an Authorization token in its headers
 
 ```javascript
 {
@@ -200,9 +182,7 @@
 }
 ```
 
-##### 401 (Unauthorized)
-
-> Will receive a 401 response if credentials are invalid or expired
+> Will receive a **401 (Unauthorized)** response if credentials are invalid or expired
 
 ```javascript
 {
@@ -210,9 +190,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
@@ -228,9 +206,7 @@
 
 #### Responses:
 
-##### 200 (OK)
-
-> Will receive a 200 response with an object containing the requested user
+> Will receive a **200 (OK)** response with an object containing the requested user
 
 ```javascript
 {
@@ -241,9 +217,7 @@
 }
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response if connecting client does not have an Authorization token in its headers
+> Will receive a **400 (Bad Request)** response if connecting client does not have an Authorization token in its headers
 
 ```javascript
 {
@@ -251,9 +225,7 @@
 }
 ```
 
-##### 401 (Unauthorized)
-
-> Will receive a 401 response if credentials are invalid or expired
+> Will receive a **401 (Unauthorized)** response if credentials are invalid or expired
 
 ```javascript
 {
@@ -261,9 +233,7 @@
 }
 ```
 
-##### 404 (Not Found)
-
-> Will receive a 404 response if parameter ID is invalid
+> Will receive a **404 (Not Found)** response if parameter ID is invalid
 
 ```javascript
 {
@@ -271,9 +241,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
@@ -311,9 +279,7 @@
 
 #### Responses:
 
-##### 200 (OK)
-
-> Will receive a 200 response with the updated user object if the request is successful
+> Will receive a **200 (OK)** response with the updated user object if the request is successful
 
 ```javascript
 {
@@ -325,9 +291,7 @@
 }
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response and one of the following messages if connecting client does not have an Authorization token in its headers or if any required information is missing from the body
+> Will receive a **400 (Bad Request)** response and one of the following messages if connecting client does not have an Authorization token in its headers or if any required information is missing from the body
 
 ```javascript
 {
@@ -359,9 +323,7 @@
 }
 ```
 
-##### 401 (Unauthorized)
-
-> Will receive a 401 response if credentials are invalid or expired
+> Will receive a **401 (Unauthorized)** response if credentials are invalid or expired
 
 ```javascript
 {
@@ -369,9 +331,7 @@
 }
 ```
 
-##### 404 (Not Found)
-
-> Will receive a 404 response if parameter ID is invalid
+> Will receive a **404 (Not Found)** response if parameter ID is invalid
 
 ```javascript
 {
@@ -379,9 +339,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
@@ -397,9 +355,7 @@
 
 #### Responses:
 
-##### 200 (OK)
-
-> Will receive a 200 response if the user is deleted successfully
+> Will receive a **200 (OK)** response if the user is deleted successfully
 
 ```javascript
 {
@@ -408,9 +364,7 @@
 
 ```
 
-##### 400 (Bad Request)
-
-> Will receive a 400 response if connecting client does not have an Authorization token in its headers
+> Will receive a **400 (Bad Request)** response if connecting client does not have an Authorization token in its headers
 
 ```javascript
 {
@@ -418,9 +372,7 @@
 }
 ```
 
-##### 401 (Unauthorized)
-
-> Will receive a 401 response if credentials are invalid or expired
+> Will receive a **401 (Unauthorized)** response if credentials are invalid or expired
 
 ```javascript
 {
@@ -428,9 +380,7 @@
 }
 ```
 
-##### 404 (Not Found)
-
-> Will receive a 404 response if parameter ID is invalid
+> Will receive a **404 (Not Found)** response if parameter ID is invalid
 
 ```javascript
 {
@@ -438,9 +388,7 @@
 }
 ```
 
-##### 500 (Internal Server Error)
-
-> Will receive a 500 response if there is an issue with the API server
+> Will receive a **500 (Internal Server Error)** response if there is an issue with the API server
 
 ```javascript
 {
