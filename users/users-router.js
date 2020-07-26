@@ -31,12 +31,28 @@ router.get("/:id", authenticator, validateId, (req, res) => {
     });
 });
 
-router.post("/register", validateUser, (req, res) => {
-  const rounds = process.env.BCRYPT_ROUNDS || 8;
-  const hash = bcryptjs.hashSync(req.body.password, rounds);
-  req.body.password = hash;
+// router.post("/register", validateUser, (req, res) => {
+//   const rounds = process.env.BCRYPT_ROUNDS || 8;
+//   const hash = bcryptjs.hashSync(req.body.password, rounds);
+//   req.body.password = hash;
 
-  Users.register(req.body)
+//   Users.register(req.body)
+//     .then((response) => {
+//       res.status(201).json(response);
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ errorMessage: error });
+//     });
+// });
+
+router.post("/register", validateUser, (req, res) => {
+  const user = req.body;
+  const rounds = process.env.BCRYPT_ROUNDS || 8;
+
+  const hash = bcryptjs.hashSync(user.password, rounds);
+  user.password = hash;
+
+  Users.register(user)
     .then((response) => {
       res.status(201).json(response);
     })
@@ -60,11 +76,9 @@ router.post("/login", validateLogin, (req, res) => {
 });
 
 router.put("/:id", authenticator, validateUser, validateId, (req, res) => {
-  const { id } = req.params;
-
-  Users.editUser(req.body, id)
+  Users.editUser(req.body, req.params.id)
     .then(() => {
-      Users.findBy(id).then((response) => {
+      Users.findBy(req.params.id).then((response) => {
         res.status(200).json(response);
       });
     })
@@ -74,9 +88,7 @@ router.put("/:id", authenticator, validateUser, validateId, (req, res) => {
 });
 
 router.delete("/:id", authenticator, validateId, (req, res) => {
-  const { id } = req.params;
-
-  Users.deleteUser(id)
+  Users.deleteUser(req.params.id)
     .then((response) => {
       res.status(200).json({ message: "The user was successfully deleted!" });
     })

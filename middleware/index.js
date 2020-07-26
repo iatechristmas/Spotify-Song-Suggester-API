@@ -60,7 +60,7 @@ function validateLogin(req, res, next) {
   } else {
     res
       .status(400)
-      .json({ message: "Please enter a valid username and password" });
+      .json({ message: "Please enter both a username and password" });
   }
 }
 
@@ -72,10 +72,12 @@ function authenticator(req, res, next) {
 
     jwt.verify(token, secret, (error, decodedToken) => {
       if (error) {
-        // Token is not valid
-        res.status(401).json({ message: "Please log in" });
+        res
+          .status(401)
+          .json({
+            message: "Token invalid. Please log in and get a new token",
+          });
       } else {
-        // Token is valid
         req.jwt = decodedToken;
         next();
       }
