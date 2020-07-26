@@ -7,5 +7,5 @@ server.listen(PORT, () => {
 });
 
 server.get("/", (req, res) => {
-  res.json({ message: "API IS UP" });
+  res.json({ spotify_song_suggester: "API IS UP" });
 });
